@@ -21,7 +21,7 @@ export function TweetHeader() {
             <img
                 className="w-11 h-11 rounded-full 
             object-cover"
-                src="/assests/kylie.png" />
+                src="/assets/kylie.png" />
                 <div>
                     <div className="text-gray-500 flex space-x-2 items-center mb-1">
                         <span>@kylie</span>
