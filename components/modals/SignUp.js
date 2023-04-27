@@ -2,9 +2,10 @@ import { closeSignupModal, openSignupModal } from "@/redux/modalSlice"
 import { Modal } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { createUserWithEmailAndPassword, onAuthStateChanged } from "firebase/auth"
+import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth"
 import { auth } from "@/firebase"
 import { setUser } from "@/redux/userSlice"
+import { useRouter } from "next/router"
 
 export default function SignupModal() {
     const isOpen = useSelector(state => state.modals.signupModalOpen)
@@ -12,15 +13,25 @@ export default function SignupModal() {
 
 
     const [email, setEmail] = useState("")
+    const [name, setName] = useState()
     const [password, setPassword] = useState("")
+
+    const router = useRouter()
 
     async function handleSignUp() {
         const userCredentials = await createUserWithEmailAndPassword(
             auth,
             email,
             password
-        )
-    }
+        );
+
+        await updateProfile(auth.currentUser, {
+            displayName: name,
+            photoURL:`./assets/profilePictures/pfp${Math.ceil(Math.random()*6)}.png`
+        });
+
+        router.reload()
+    };
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -28,10 +39,10 @@ export default function SignupModal() {
             dispatch(setUser(
                 {
                     username: currentUser.email.split("@")[0],
-                    name: null,
+                    name: currentUser.displayName,
                     email: currentUser.email,
                     uid: currentUser.uid,
-                    photoUrl: null
+                    photoUrl: currentUser.photoURL
                 }
             ));
 
@@ -73,7 +84,8 @@ export default function SignupModal() {
                             placeholder="Full Name"
                             className="h-10 mt-8 rounded-md bg-transparent border
                         border-gray-700 p-6"
-                            type={"text"} />
+                            type={"text"}
+                            onChange={e => setName(e.target.value)}/>
                         <input
                             placeholder="Email"
                             className="h-10 mt-8 rounded-md bg-transparent border

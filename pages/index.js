@@ -5,6 +5,7 @@ import PostFeed from '@/components/Postfeed'
 import Trending from '@/components/Trending'
 import Banner from '@/components/Banner'
 import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -12,7 +13,6 @@ export default function Home() {
 
 
   const username = useSelector(state => state.user.username)
-  console.log(username)
 
   return (
 
