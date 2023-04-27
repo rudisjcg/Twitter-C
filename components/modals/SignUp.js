@@ -2,7 +2,7 @@ import { closeSignupModal, openSignupModal } from "@/redux/modalSlice"
 import { Modal } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth"
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, updateProfile } from "firebase/auth"
 import { auth } from "@/firebase"
 import { setUser } from "@/redux/userSlice"
 import { useRouter } from "next/router"
@@ -32,6 +32,10 @@ export default function SignupModal() {
 
         router.reload()
     };
+
+    async function handleGuestSignIn() {
+        await signInWithEmailAndPassword(auth, "guest77@gmail.com", "guest771234")
+    }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -74,7 +78,9 @@ export default function SignupModal() {
         border border-gray-700 rounded-lg
         flex justify-center">
                     <div className="w-[90%] mt-8 flex flex-col">
-                        <button className="bg-white text-black w-full
+                        <button
+                        onClick={handleGuestSignIn}
+                        className="bg-white text-black w-full
                 font-bold text-lg p-2 rounded-md">Sign In as Guest</button>
                         <h1 className="text-center mt-4 font-bold text-lg
                 ">or</h1>

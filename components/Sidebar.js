@@ -15,6 +15,7 @@ import { signOut } from 'firebase/auth'
 import Image from 'next/image'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
+import { closeLoginModal, closeSignupModal } from '@/redux/modalSlice'
 
 export default function Sidebar() {
 
@@ -26,6 +27,8 @@ export default function Sidebar() {
     async function handleSignOut() {
         await signOut(auth)
         dispatch(signOutUser)
+        dispatch(closeSignupModal())
+        dispatch(closeLoginModal())
         router.reload()
     }
 
