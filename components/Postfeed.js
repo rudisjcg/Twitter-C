@@ -23,6 +23,7 @@ export default function PostFeed() {
 
 
 
+
     return (
         <div className="sm:ml-16 xl:ml-80 max-w-2xl
         flex-grow border-gray-700 border-x">

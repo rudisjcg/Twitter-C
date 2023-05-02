@@ -3,6 +3,7 @@ import { openLoginModal } from "@/redux/modalSlice";
 import { CalendarIcon, ChartBarIcon, EmojiHappyIcon, LocationMarkerIcon, PhotographIcon, XIcon } from "@heroicons/react/outline";
 import { addDoc, collection, doc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import Link from "next/link";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -62,9 +63,12 @@ export default function TweetInput() {
 
     return (
         <div className="flex space-x-3 p-3 border-b border-gray-700">
+            <Link href={"/username/" + user.username} key={user.username}>
             <img src={user.photoUrl || "/assets/twitter-logo.png"}
                 className="w-11 h-11 rounded-full 
              object-cover"/>
+            </Link>
+            
 
              {loading && <h1 className="text-2xl text-gray-500">Uploading post...</h1>}
 

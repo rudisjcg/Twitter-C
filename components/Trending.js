@@ -2,7 +2,12 @@ import { DotsHorizontalIcon, SearchIcon } from "@heroicons/react/outline";
 import { BadgeCheckIcon } from "@heroicons/react/solid"
 
 
-export default function Trending() {
+
+export default function Trending( ) {
+
+    
+
+    
     return (
         <div className="hidden lg:flex flex-col ml-7 mt-4">
 
@@ -66,7 +71,7 @@ export default function Trending() {
                         <img className="w-11 h-11 object-cover rounded-full" src="/assests/kylie.png" />
                         <div>
                             <div className="flex space-x-1">
-                                <h1 className="font-bold">David Bragg</h1>
+                                <h1 className="font-bold">@davidbragg</h1>
                                 <BadgeCheckIcon className="w-[18px] text-blue-400" />
                             </div>
                             <h1 className="text-[12px] text-gray-500 mt-1">@davidbragg</h1>
