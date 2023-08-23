@@ -1,5 +1,3 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
 import Sidebar from '@/components/Sidebar'
 import PostFeed from '@/components/Postfeed'
 import Trending from '@/components/Trending'
@@ -19,10 +17,16 @@ export default function Home() {
     <div>
       <div className='bg-black min-h-screen text-[#e7e9ea] 
     max-w-[1400] mx-auto
-    flex '>
+    flex justify-center'>
+      <div className='sm:w-[300px]'>
+
         <Sidebar />
+      </div>
+      <div className='relative flex justify-center items-start'>
+        
         <PostFeed />
         <Trending />
+      </div>
         {/*
       
        */}
