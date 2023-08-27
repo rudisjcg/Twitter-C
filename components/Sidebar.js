@@ -16,6 +16,7 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { closeLoginModal, closeSignupModal } from "@/redux/modalSlice";
+import Link from "next/link";
 
 export default function Sidebar() {
   const dispatch = useDispatch();
@@ -23,9 +24,11 @@ export default function Sidebar() {
 
   const user = useSelector((state) => state.user);
 
+  const userProfile = `users/${user.username}`
+
   async function handleSignOut() {
-    await signOut(auth);
     dispatch(signOutUser);
+    await signOut(auth);
     dispatch(closeSignupModal());
     dispatch(closeLoginModal());
     router.reload();
@@ -45,7 +48,7 @@ export default function Sidebar() {
             <SidebarLink Icon={BellIcon} text={"Notifications"} />
             <SidebarLink Icon={InboxIcon} text={"Messages"} />
             <SidebarLink Icon={BookmarkIcon} text={"Bookmarks"} />
-            <SidebarLink Icon={UserIcon} text={"Profile"} />
+            <SidebarLink Icon={UserIcon} text={"Profile"} url={userProfile}/>
             <SidebarLink Icon={DotsCircleHorizontalIcon} text={"More"} />
             <button
               className="hidden xl:inline bg-[#1d9bf0]
@@ -81,11 +84,14 @@ export default function Sidebar() {
   );
 }
 
-function SidebarLink({ text, Icon }) {
+function SidebarLink({ text, Icon, url }) {
   return (
     <li className="hoverAnimation flex mb-3 xl:justify-start justify-center items-center text-xl space-x-3">
-      <Icon className="h-7" />
+     <Link href={`/${url}`} className="flex gap-2">
+     
+     <Icon className="h-7" />
       <span className="hidden xl:inline">{text}</span>
+     </Link> 
     </li>
   );
 }

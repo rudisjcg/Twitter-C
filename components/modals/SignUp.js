@@ -3,9 +3,10 @@ import { Modal } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, updateProfile } from "firebase/auth"
-import { auth } from "@/firebase"
+import { auth, db } from "@/firebase"
 import { setUser } from "@/redux/userSlice"
 import { useRouter } from "next/router"
+import { addDoc, collection, doc, setDoc } from "firebase/firestore"
 
 export default function SignupModal() {
     const isOpen = useSelector(state => state.modals.signupModalOpen)
@@ -30,6 +31,9 @@ export default function SignupModal() {
             photoURL:`./assets/profilePictures/pfp${Math.ceil(Math.random()*6)}.png`
         });
 
+             
+        
+
         router.reload()
     };
 
@@ -40,14 +44,18 @@ export default function SignupModal() {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             if (!currentUser) return
-            dispatch(setUser(
-                {
-                    username: currentUser.email.split("@")[0],
-                    name: currentUser.displayName,
-                    email: currentUser.email,
-                    uid: currentUser.uid,
-                    photoUrl: currentUser.photoURL
-                }
+
+            (
+
+                dispatch(setUser(
+                    {
+                        username: currentUser.email.split("@")[0],
+                        name: currentUser.displayName,
+                        email: currentUser.email,
+                        uid: currentUser.uid,
+                        photoUrl: currentUser.photoURL
+                    }
+            )
             ));
 
 
@@ -56,6 +64,8 @@ export default function SignupModal() {
 
         return unsubscribe
     }, [])
+
+   
 
     return (
         <>

@@ -54,7 +54,7 @@ export default function Tweet({ data, id }) {
     return (
         <div
         onClick={() => router.push("/" + id)}
-        className="border-b border-gray-700 cursor-pointer">
+        className="border-b border-gray-700 cursor-pointer sm:w-[600px]">
             <TweetHeader
                 username={data?.username}
                 name={data?.name}
